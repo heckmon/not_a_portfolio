@@ -70,7 +70,7 @@ class DesktopBodyState extends State<DesktopBody> {
                                   style: GoogleFonts.kalam(
                                     color: Colors.white,
                                     fontSize: 20,
-                                    fontStyle: contFontStyle.italic
+                                    fontStyle: FontStyle.italic
                                   ),
                                 ),
                               ),
@@ -108,7 +108,7 @@ class DesktopBodyState extends State<DesktopBody> {
                         ],
                         child: const Terminal(
                           command: "whoami",
-                          result: "Just a sleep-deprived engineer student with too many side projects and hate theory subjects.\n\nMy parents named me 'Athul'. I hate that name. \nStudying at the 'College of Engineering Attingal', even the locals don't know it exists.\n\nUnlike most of the rats running behind HTML, I started with Python.\n\nThen I learned flutter for front end.\nI chose Flutter not just for mobile, but because it’s a framework that makes sense. Native speed, cross-platform power. A full-stack framework that meets my needs. I loved that I could write once and deploy anywhere. Android, iOS, and web – all from a single codebase.\n\nCurrently learning OS development using C and assembly."
+                          result: "Just a sleep-deprived engineering student with too many side projects and hate theory subjects.\n\nMy parents named me 'Athul'. I hate that name. \nStudying at the 'College of Engineering Attingal', even the locals don't know it exists.\n\nUnlike most of the rats running behind HTML, I started with Python.\n\nThen I learned flutter for front end.\nI chose Flutter not just for mobile, but because it’s a framework that makes sense. Native speed, cross-platform power. A full-stack framework that meets my needs. I loved that I could write once and deploy anywhere. Android, iOS, and web – all from a single codebase.\n\nCurrently learning OS development using C and assembly."
                         ),
                       ),
                     ),
@@ -118,6 +118,7 @@ class DesktopBodyState extends State<DesktopBody> {
               ],
             ),
             Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
@@ -130,6 +131,27 @@ class DesktopBodyState extends State<DesktopBody> {
                         fontSize: 38
                       ),
                     )
+                  ),
+                ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: SizedBox()
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 100, top: 100),
+                          child: Projects(),
+                        )
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: SizedBox()
+                      )
+                    ],
                   ),
                 )
               ],
