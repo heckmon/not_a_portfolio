@@ -166,16 +166,8 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
   }
 
   @override
-  void dispose() {
-    for (int i = 0; i < _projectControllers.length; i++) {
-        _projectControllers[i].dispose();
-      }
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         Stack(
           children: [

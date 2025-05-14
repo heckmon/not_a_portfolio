@@ -21,143 +21,140 @@ class DesktopBodyState extends State<DesktopBody> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: ScrollConfiguration(
-        behavior: const ScrollBehavior().copyWith(scrollbars: true),
-        child: PageView(
-          pageSnapping: false,
-          scrollDirection: Axis.vertical,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                    Opacity(
-                      opacity: 0.15,
-                      child: Image.asset(
-                        "assets/images/cat.webp",
-                        fit: BoxFit.cover,
-                      ),
+      body: PageView(
+        pageSnapping: false,
+        scrollDirection: Axis.vertical,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                  Opacity(
+                    opacity: 0.15,
+                    child: Image.asset(
+                      "assets/images/cat.webp",
+                      fit: BoxFit.cover,
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          "Not a Portfolio",
-                          style: GoogleFonts.tangerine(
-                            fontSize: 130,
-                            color: Colors.white
-                        )),
-                        SizedBox(height: 350),
-                        Column(
-                          children: [
-                            Text(
-                              '"Why decorate a README profile when the repo itself tells the story?"',
-                              style: GoogleFonts.kalam(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontStyle: FontStyle.italic
-                              ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        "Not a Portfolio",
+                        style: GoogleFonts.tangerine(
+                          fontSize: 130,
+                          color: Colors.white
+                      )),
+                      SizedBox(height: 350),
+                      Column(
+                        children: [
+                          Text(
+                            '"Why decorate a README profile when the repo itself tells the story?"',
+                            style: GoogleFonts.kalam(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontStyle: FontStyle.italic
                             ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 200),
-                                child: Text(
-                                  "-A wise man",
-                                  style: GoogleFonts.kalam(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontStyle: FontStyle.italic
-                                  ),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 200),
+                              child: Text(
+                                "-A wise man",
+                                style: GoogleFonts.kalam(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontStyle: FontStyle.italic
                                 ),
                               ),
-                            )
-                          ],
-                        ),
-                        Text(
-                          "No intension to showcase anything.\nJust built a site for fun.",
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.montserrat(
-                            color: Colors.white,
-                            fontSize: 19,
-                            height: 1.5
-                          ),
-                        ),   
-                      ],
-                    )
-                    ],
-                  )
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    color: Color(0xff090909),
-                    child: Padding(
-                      padding: const EdgeInsets.all(75),
-                      child: Animate(
-                        effects: [
-                          const SlideEffect(
-                            begin: Offset(2, 0),
-                            end: Offset.zero,
-                            duration: Duration(milliseconds: 1500),
-                            curve: Curves.bounceIn
+                            ),
                           )
                         ],
-                        child: const Terminal(
-                          command: "whoami",
-                          result: "Just a sleep-deprived engineering student with too many side projects and hate theory subjects.\n\nMy parents named me 'Athul'. I hate that name. \nStudying at the 'College of Engineering Attingal', even the locals don't know it exists.\n\nUnlike most of the rats running behind HTML, I started with Python.\n\nThen I learned flutter for front end.\nI chose Flutter not just for mobile, but because it’s a framework that makes sense. Native speed, cross-platform power. A full-stack framework that meets my needs. I loved that I could write once and deploy anywhere. Android, iOS, and web – all from a single codebase.\n\nCurrently learning OS development using C and assembly."
-                        ),
                       ),
+                      Text(
+                        "No intension to showcase anything.\nJust built a site for fun.",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontSize: 19,
+                          height: 1.5
+                        ),
+                      ),   
+                    ],
+                  )
+                  ],
+                )
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  color: Color(0xff090909),
+                  child: Padding(
+                    padding: const EdgeInsets.all(75),
+                    child: Animate(
+                      effects: [
+                        const SlideEffect(
+                          begin: Offset(2, 0),
+                          end: Offset.zero,
+                          duration: Duration(milliseconds: 1500),
+                          curve: Curves.bounceIn
+                        )
+                      ],
+                      child: const Terminal(
+                        command: "whoami",
+                        result: "Just a sleep-deprived engineering student with too many side projects and hate theory subjects.\n\nMy parents named me 'Athul'. I hate that name. \nStudying at the 'College of Engineering Attingal', even the locals don't know it exists.\n\nUnlike most of the rats running behind HTML, I started with Python.\n\nThen I learned flutter for front end.\nI chose Flutter not just for mobile, but because it’s a framework that makes sense. Native speed, cross-platform power. A full-stack framework that meets my needs. I loved that I could write once and deploy anywhere. Android, iOS, and web – all from a single codebase.\n\nCurrently learning OS development using C and assembly."
+                      ),
+                    ),
+                  ),
+                )
+              ),
+              
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Side Projects",
+                    style: GoogleFonts.museoModerno(
+                      color: Colors.white,
+                      fontSize: 38
                     ),
                   )
                 ),
-                
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Side Projects",
-                      style: GoogleFonts.museoModerno(
-                        color: Colors.white,
-                        fontSize: 38
-                      ),
-                    )
-                  ),
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: SizedBox()
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 100, top: 100),
-                          child: Projects(),
-                        )
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: SizedBox()
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: SizedBox()
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 100, top: 100),
+                        child: Projects(),
                       )
-                    ],
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: SizedBox()
+                    )
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
       )
       );
   }
