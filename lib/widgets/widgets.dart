@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Terminal extends StatefulWidget {
   final String command;
@@ -180,17 +181,20 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
     super.initState();
   }
 
-  @override
+/*   @override
   void dispose() {
-    for(AnimationController controller in _projectAnimationControllers){
+    WidgetsBinding.instance.addPostFrameCallback((_){
+      for(AnimationController controller in _projectAnimationControllers){
       controller.dispose();
     }
+    });
+
     super.dispose();
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         Stack(
           children: [
@@ -203,7 +207,6 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
                 _subtitleColorAnimation[0],
                 "Seven Segment Display module",
                 "A MicroPython library to control traditional 4 digit seven segment display.",
-                true,
                 "",
                 Padding(
                   padding: const EdgeInsets.all(9.0),
@@ -217,7 +220,10 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
                       );
                     }
                   ),
-                )
+                ),
+                () async{
+                  await launchUrl(Uri.parse("https://github.com/heckmon/micropython_7segment_display_library"));
+                }
               ),
             ),
             Positioned(
@@ -236,7 +242,6 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
               _subtitleColorAnimation[1],
               "AI Whatsapp Bot",
               "A whatsapp bot created by integrating Google Gemini API with Whatsapp API.",
-              true,
               "",
               Padding(
                 padding: const EdgeInsets.all(9.0),
@@ -250,7 +255,10 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
                     );
                   }
                 ),
-              )
+              ),
+              () async{
+                await launchUrl(Uri.parse("https://github.com/heckmon/Whatsapp_Gemini_AI_Bot"));
+              }
             ),
             Positioned(
               left: 47,
@@ -268,7 +276,6 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
               _subtitleColorAnimation[2],
               "KTU result prank",
               "KTU result page clone with fake result, I learned flutter by doing this.",
-              true,
               "",
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom:8, right: 11),
@@ -285,7 +292,10 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
                     }
                   ),
                 ),
-              )
+              ),
+              () async{
+                await launchUrl(Uri.parse("https://github.com/heckmon/ktu_results_2025"));
+              }
             ),
             Positioned(
               left: 47,
@@ -294,28 +304,99 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             ), 
           ],
         ),
-        projectTile(
-          _projectAnimationControllers[3],
-          _colorAnimations[3],
-          _textColorAnimation[3],
-          _subtitleColorAnimation[3],
-          "File Tree View",
-          "A flutter package to display directiories in a VScode style tree structure.",
-          true,
-          "",
+        Stack(
+          children: [
+            projectTile(
+              _projectAnimationControllers[3],
+              _colorAnimations[3],
+              _textColorAnimation[3],
+              _subtitleColorAnimation[3],
+              "File Tree View",
+              "A flutter package to display directiories in a VScode style tree structure.",
+              "",
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom:8, right: 11),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: AnimatedBuilder(
+                    animation: _projectAnimationControllers[3],
+                    builder: (context,_) {
+                      return SvgPicture.asset(
+                        colorFilter: ColorFilter.mode(_iconColorAnimation[3].value!, BlendMode.color),
+                        height: 35,
+                        "assets/images/flutter.svg",
+                      );
+                    }
+                  ),
+                ),
+              ),
+              () async{
+                await launchUrl(Uri.parse("https://github.com/heckmon/file_tree_view"));
+              }
+            ),
+            Positioned(
+              left: 47,
+              top: 75,
+              child: Saber(startAfter: Duration(milliseconds: 4000), height: 50)
+            ),
+          ],
+        ),
+        pendingProjectTile(
+          "Code Crafter",
+          "A powerful flutter code editor package with LSP support.",
           Padding(
-            padding: const EdgeInsets.only(top: 8, bottom:8, right: 11),
+            padding: const EdgeInsets.only(top: 8, bottom: 8, right: 11),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: AnimatedBuilder(
-                animation: _projectAnimationControllers[3],
-                builder: (context,_) {
-                  return SvgPicture.asset(
-                    colorFilter: ColorFilter.mode(_iconColorAnimation[3].value!, BlendMode.color),
-                    height: 35,
-                    "assets/images/flutter.svg",
-                  );
-                }
+              child: SvgPicture.asset(
+                colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+                height: 35,
+                "assets/images/flutter.svg"
+              ),
+            ),
+          )
+        ),
+        pendingProjectTile(
+          "VSDroid",
+          "A full fledged IDE on android uses Code Crafter under the hood.",
+          Padding(
+            padding: const EdgeInsets.only(top: 8, bottom: 8, right: 11),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(
+                colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+                height: 35,
+                "assets/images/flutter.svg"
+              ),
+            ),
+          )
+        ),
+        pendingProjectTile(
+          "OS from Scratch",
+          "A kernel from scratch using C.",
+          Padding(
+            padding: const EdgeInsets.all(9.0),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 5),
+              child: SvgPicture.asset(
+                colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+                height: 38,
+                "assets/images/c-1.svg"
+              ),
+            ),
+          )
+        ),
+        pendingProjectTile(
+          "Mini PC from scratch using NAND gates",
+          "Following the 'NandToTetris' course",
+          Padding(
+            padding: const EdgeInsets.all(9.0),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 5),
+              child: SvgPicture.asset(
+                colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
+                height: 40,
+                "assets/images/pgb-dsp.svg"
               ),
             ),
           )
@@ -332,9 +413,9 @@ Widget projectTile(
     Animation<Color?> subtitleColorAnimation,
     String title,
     String subtitle,
-    bool status,
     String link,
     dynamic icon,
+    VoidCallback onPressed
   ){
   return AnimatedBuilder(
     animation: controller,
@@ -390,7 +471,7 @@ Widget projectTile(
                     spacing: 5,
                     children: [
                       Text(
-                        "Status: ${status ? "Completed" : "Under development"}",
+                        "Status: Completed",
                         style: GoogleFonts.montserrat(
                           color: subtitleColorAnimation.value,
                           fontSize: 14
@@ -404,7 +485,7 @@ Widget projectTile(
                     ],
                   ),
                   TextButton(
-                    onPressed: (){},
+                    onPressed: onPressed,
                     child: Text("Source code")
                   )
                 ],
@@ -417,6 +498,64 @@ Widget projectTile(
   );
 }
 
+Widget pendingProjectTile(
+  String title,
+  String subtitle,
+  dynamic icon
+){
+  return ListTile(
+    titleTextStyle: GoogleFonts.museoModerno(
+      color: const Color.fromARGB(255, 80, 79, 79),
+      fontSize: 22
+    ),
+    title: Row(
+      spacing: 20,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 0),
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle
+            ),
+            child: icon,
+          ),
+        ),
+        Text(title)
+      ],
+    ),
+    subtitle: Padding(
+      padding: const EdgeInsets.only(left: 70),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            subtitle,
+            style:  GoogleFonts.montserrat(
+              color: const Color.fromARGB(255, 74, 73, 73),
+              fontSize: 16
+            ),
+          ),
+          Row(
+            spacing: 5,
+            children: [
+              Text(
+                "Status: Under development",
+                style: GoogleFonts.montserrat(
+                  color: const Color.fromARGB(255, 80, 79, 79),
+                  fontSize: 14
+                ),
+              ),
+              Icon(
+                Icons.construction,
+                size: 17,
+              )
+            ],
+          ),
+        ],
+      ),
+    ),
+  );
+}
 
 class Saber extends StatefulWidget {
   final Duration startAfter;

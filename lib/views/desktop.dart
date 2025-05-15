@@ -115,24 +115,24 @@ class DesktopBodyState extends State<DesktopBody> {
               
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Side Projects",
-                    style: GoogleFonts.museoModerno(
-                      color: Colors.white,
-                      fontSize: 38
-                    ),
-                  )
+          SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Side Projects",
+                      style: GoogleFonts.museoModerno(
+                        color: Colors.white,
+                        fontSize: 38
+                      ),
+                    )
+                  ),
                 ),
-              ),
-              Expanded(
-                child: Row(
+                Row(
                   children: [
                     Expanded(
                       flex: 1,
@@ -151,16 +151,14 @@ class DesktopBodyState extends State<DesktopBody> {
                     )
                   ],
                 ),
-              )
-            ],
+                SizedBox(
+                  height: 100,
+                )
+              ],
+            ),
           )
         ],
       )
       );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
