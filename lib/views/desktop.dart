@@ -100,7 +100,7 @@ class DesktopBodyState extends State<DesktopBody> {
                         const SlideEffect(
                           begin: Offset(2, 0),
                           end: Offset.zero,
-                          duration: Duration(milliseconds: 1500),
+                          duration: Duration(milliseconds: 1000),
                           curve: Curves.bounceIn
                         )
                       ],

@@ -142,63 +142,50 @@ class Projects extends StatefulWidget {
 
 class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
 
-  late final List<AnimationController> _projectIconControllers;
+  late final List<AnimationController> _projectAnimationControllers;
   late final List<Animation<Color?>> _colorAnimations;
-
-  late final List<AnimationController> _projectTextControllers;
   late final List<Animation<Color?>> _textColorAnimation;
-
-  late final List<AnimationController> _iconColorController;
   late final List<Animation<Color?>> _iconColorAnimation;
-
-  late final List<AnimationController> _subtitleColorController;
   late final List<Animation<Color?>> _subtitleColorAnimation;
 
   @override
   void initState() {
-     _projectIconControllers = List.generate(4, (_) => AnimationController(
+     _projectAnimationControllers = List.generate(4, (_) => AnimationController(
         vsync: this,
         duration: Duration(milliseconds: 600),
       ));
+
       _colorAnimations = List.generate(4, (index) =>
-        ColorTween(begin: Colors.transparent, end: Colors.greenAccent)
-          .animate(_projectIconControllers[index])
+        ColorTween(begin: Colors.transparent, end: Colors.greenAccent).animate(_projectAnimationControllers[index])
       );
 
-      _projectTextControllers = List.generate(4, (_) => AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 600),
-      ));
       _textColorAnimation = List.generate(4, (index) => 
-        ColorTween(begin: const Color.fromARGB(255, 59, 58, 58), end: Colors.white).animate(_projectTextControllers[index])
+        ColorTween(begin: const Color.fromARGB(255, 59, 58, 58), end: Colors.white).animate(_projectAnimationControllers[index])
       );
 
-      _iconColorController = List.generate(4, (_) => AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 600),
-      ));
       _iconColorAnimation = List.generate(4, (index) => 
-        ColorTween(begin: Colors.black, end: Colors.transparent).animate(_iconColorController[index])
+        ColorTween(begin: Colors.black, end: Colors.transparent).animate(_projectAnimationControllers[index])
       );
 
-      _subtitleColorController = List.generate(4, (_) => AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: 600),
-      ));
       _subtitleColorAnimation = List.generate(4, (index) => 
-        ColorTween(begin: const Color.fromARGB(255, 52, 52, 52), end: Colors.grey[400]).animate(_iconColorController[index])
+        ColorTween(begin: const Color.fromARGB(255, 52, 52, 52), end: Colors.grey[400]).animate(_projectAnimationControllers[index])
       );
 
-      for (int i = 0; i < _projectIconControllers.length; i++) {
+      for (int i = 0; i < _projectAnimationControllers.length; i++) {
         Future.delayed(Duration(milliseconds: i * 1300), () {
-          _projectIconControllers[i].forward();
-          _projectTextControllers[i].forward();
-          _iconColorController[i].forward();
-          _subtitleColorController[i].forward();
+          _projectAnimationControllers[i].forward();
         });
       }
       
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    for(AnimationController controller in _projectAnimationControllers){
+      controller.dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -210,12 +197,10 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Padding(
               padding: const EdgeInsets.only(top: 15),
               child: projectTile(
+                _projectAnimationControllers[0],
                 _colorAnimations[0],
-                _projectIconControllers[0],
                 _textColorAnimation[0],
-                _projectTextControllers[0],
                 _subtitleColorAnimation[0],
-                _subtitleColorController[0],
                 "Seven Segment Display module",
                 "A MicroPython library to control traditional 4 digit seven segment display.",
                 true,
@@ -223,7 +208,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
                 Padding(
                   padding: const EdgeInsets.all(9.0),
                   child: AnimatedBuilder(
-                    animation: _iconColorController[0],
+                    animation: _projectAnimationControllers[0],
                     builder: (context,_) {
                       return SvgPicture.asset(
                         colorFilter: ColorFilter.mode(_iconColorAnimation[0].value!, BlendMode.color),
@@ -245,12 +230,10 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
         Stack(
           children: [
             projectTile(
+              _projectAnimationControllers[1],
               _colorAnimations[1],
-              _projectIconControllers[1],
               _textColorAnimation[1],
-              _projectTextControllers[1],
               _subtitleColorAnimation[1],
-              _subtitleColorController[1],
               "AI Whatsapp Bot",
               "A whatsapp bot created by integrating Google Gemini API with Whatsapp API.",
               true,
@@ -258,7 +241,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
               Padding(
                 padding: const EdgeInsets.all(9.0),
                 child: AnimatedBuilder(
-                  animation: _iconColorController[1],
+                  animation: _projectAnimationControllers[1],
                   builder: (context,_) {
                     return SvgPicture.asset(
                       colorFilter: ColorFilter.mode(_iconColorAnimation[1].value!, BlendMode.color),
@@ -279,12 +262,10 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
         Stack(
           children: [
             projectTile(
+              _projectAnimationControllers[2],
               _colorAnimations[2],
-              _projectIconControllers[2],
               _textColorAnimation[2],
-              _projectTextControllers[2],
               _subtitleColorAnimation[2],
-              _subtitleColorController[2],
               "KTU result prank",
               "KTU result page clone with fake result, I learned flutter by doing this.",
               true,
@@ -294,7 +275,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: AnimatedBuilder(
-                    animation: _iconColorController[2],
+                    animation: _projectAnimationControllers[2],
                     builder: (context,_) {
                       return SvgPicture.asset(
                         colorFilter: ColorFilter.mode(_iconColorAnimation[2].value!, BlendMode.color),
@@ -314,12 +295,10 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
           ],
         ),
         projectTile(
+          _projectAnimationControllers[3],
           _colorAnimations[3],
-          _projectIconControllers[3],
           _textColorAnimation[3],
-          _projectTextControllers[3],
           _subtitleColorAnimation[3],
-          _subtitleColorController[3],
           "File Tree View",
           "A flutter package to display directiories in a VScode style tree structure.",
           true,
@@ -329,7 +308,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: AnimatedBuilder(
-                animation: _iconColorController[3],
+                animation: _projectAnimationControllers[3],
                 builder: (context,_) {
                   return SvgPicture.asset(
                     colorFilter: ColorFilter.mode(_iconColorAnimation[3].value!, BlendMode.color),
@@ -347,12 +326,10 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
 }
 
 Widget projectTile(
-    Animation<Color?> colorAnimation,
     AnimationController controller,
+    Animation<Color?> colorAnimation,
     Animation<Color?> textColorAnimation,
-    AnimationController textColorController,
     Animation<Color?> subtitleColorAnimation,
-    AnimationController subtitleColorController,
     String title,
     String subtitle,
     bool status,
@@ -363,7 +340,7 @@ Widget projectTile(
     animation: controller,
     builder: (context, child) {
       return AnimatedBuilder(
-        animation: textColorController,
+        animation: controller,
         builder: (context,child) {
           return ListTile(
             titleTextStyle: GoogleFonts.museoModerno(
@@ -397,46 +374,41 @@ Widget projectTile(
                 Text(title)
               ],
             ),
-            subtitle: AnimatedBuilder(
-              animation: subtitleColorController,
-              builder: (context,_) {
-                return Padding(
-                  padding: const EdgeInsets.only(left: 70),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            subtitle: Padding(
+              padding: const EdgeInsets.only(left: 70),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    subtitle,
+                    style:  GoogleFonts.montserrat(
+                      color: subtitleColorAnimation.value,
+                      fontSize: 16
+                    ),
+                  ),
+                  Row(
+                    spacing: 5,
                     children: [
                       Text(
-                        subtitle,
-                        style:  GoogleFonts.montserrat(
+                        "Status: ${status ? "Completed" : "Under development"}",
+                        style: GoogleFonts.montserrat(
                           color: subtitleColorAnimation.value,
-                          fontSize: 16
+                          fontSize: 14
                         ),
                       ),
-                      Row(
-                        spacing: 5,
-                        children: [
-                          Text(
-                            "Status: ${status ? "Completed" : "Under development"}",
-                            style: GoogleFonts.montserrat(
-                              color: subtitleColorAnimation.value,
-                              fontSize: 14
-                            ),
-                          ),
-                          Icon(
-                            Icons.check_circle_rounded,
-                            size: 15,
-                            color: Colors.greenAccent,
-                          )
-                        ],
-                      ),
-                      TextButton(
-                        onPressed: (){},
-                        child: Text("Source code")
+                      Icon(
+                        Icons.check_circle_rounded,
+                        size: 15,
+                        color: Colors.greenAccent,
                       )
                     ],
                   ),
-                );
-              }
+                  TextButton(
+                    onPressed: (){},
+                    child: Text("Source code")
+                  )
+                ],
+              ),
             ),
           );
         }
