@@ -11,7 +11,7 @@ class DesktopBody extends StatefulWidget {
 }
 
 class DesktopBodyState extends State<DesktopBody> {
-
+  
   @override
   void initState() {
     super.initState();
@@ -19,6 +19,7 @@ class DesktopBodyState extends State<DesktopBody> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.black,
       body: PageView(
@@ -115,50 +116,83 @@ class DesktopBodyState extends State<DesktopBody> {
               
             ],
           ),
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Side Projects",
-                      style: GoogleFonts.museoModerno(
-                        color: Colors.white,
-                        fontSize: 38
-                      ),
-                    )
-                  ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: SizedBox()
+          ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Side Projects",
+                    style: GoogleFonts.museoModerno(
+                      color: Colors.white,
+                      fontSize: 38
                     ),
-                    Expanded(
-                      flex: 2,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 100, top: 100),
-                        child: Projects(),
+                  )
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth * 0.3, top: 60),
+                child: Projects(),
+              ),
+            ],
+          ),
+          ListView(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth * 0.3),
+                child: PendingProjects()
+              ),
+              SizedBox(height: 100),
+              Align(
+                alignment: Alignment.center,
+                child: Text("Upcoming Project(s)", style: GoogleFonts.museoModerno(
+                  color: Colors.white,
+                  fontSize: 38
+                )),
+              ),
+              SizedBox(height: 70),
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth * 0.3),
+                child: upcomingProject,
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 200,left: 200),
+                  child: getInTouch,
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(75),
+                  child: Animate(
+                    effects: [
+                      const SlideEffect(
+                        begin: Offset(2, 0),
+                        end: Offset.zero,
+                        duration: Duration(milliseconds: 1000),
+                        curve: Curves.bounceIn,
                       )
+                    ],
+                    child: Terminal(
+                      command: "sudo load cringe",
+                      result: "> generating Readme.md profile...\nerror: Operation blocked.\nreason: Newbie glitter detected — does not meet developer credibility requirements.\n\n> get relationship --status\nstatus: Single since birth.\n\n> uptime\ntoo long.\n\n> go to sleep\nerror: Too many thoughts running.\n\n~\$ git checkout responsibilities\ngit: Switched to branch 'nah'\n\n~\$ df -h\n/dev/brain   Not working properly.\n\n~\$ ./lab.sh\n Half wired, Half wrong -- full marks anyway.\n\n> Cringe threshold exceeded. Exiting...",
+                      delay: 150,
+                      curve: Curves.easeIn,
                     ),
-                    Expanded(
-                      flex: 1,
-                      child: SizedBox()
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 100,
+                  ),
                 )
-              ],
-            ),
+              )
+            ],
           )
         ],
       )
-      );
+    );
   }
 }

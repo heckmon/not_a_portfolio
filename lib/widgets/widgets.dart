@@ -7,10 +7,14 @@ import 'package:url_launcher/url_launcher.dart';
 class Terminal extends StatefulWidget {
   final String command;
   final String result;
+  final Curve? curve;
+  final int? delay;
   const Terminal({
     super.key,
     required this.command,
     required this.result,
+    this.curve,
+    this.delay
   });
 
   @override
@@ -98,8 +102,8 @@ class _TerminalState extends State<Terminal> with SingleTickerProviderStateMixin
                               totalRepeatCount: 1,
                               animatedTexts: [
                                 TypewriterAnimatedText(
-                                  speed: Duration(milliseconds: 400), 
-                                  curve: Curves.bounceIn,
+                                  speed: Duration(milliseconds: widget.delay ?? 400), 
+                                  curve: widget.curve ?? Curves.bounceIn,
                                   widget.command,
                                 )
                               ],
@@ -173,24 +177,23 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
       );
 
       for (int i = 0; i < _projectAnimationControllers.length; i++) {
-        Future.delayed(Duration(milliseconds: i * 1300), () {
-          _projectAnimationControllers[i].forward();
+        Future.delayed(Duration(milliseconds: i * 1100), () {
+          if(mounted) _projectAnimationControllers[i].forward();
         });
       }
       
     super.initState();
   }
 
-/*   @override
+  @override
   void dispose() {
     WidgetsBinding.instance.addPostFrameCallback((_){
       for(AnimationController controller in _projectAnimationControllers){
-      controller.dispose();
+        if(mounted) controller.dispose();
     }
     });
-
     super.dispose();
-  } */
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -229,7 +232,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 87,
-              child: Saber(startAfter: Duration(milliseconds: 600), height: 85)
+              child: Saber(startAfter: Duration(milliseconds: 400), height: 85)
             ),    
           ],
         ),
@@ -263,7 +266,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 72,
-              child: Saber(startAfter: Duration(milliseconds: 1900), height: 85)
+              child: Saber(startAfter: Duration(milliseconds: 1700), height: 85)
             ), 
           ],
         ),
@@ -300,7 +303,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 75,
-              child: Saber(startAfter: Duration(milliseconds: 3300), height: 85)
+              child: Saber(startAfter: Duration(milliseconds: 2700), height: 85)
             ), 
           ],
         ),
@@ -337,7 +340,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 75,
-              child: Saber(startAfter: Duration(milliseconds: 4000), height: 50)
+              child: Saber(startAfter: Duration(milliseconds: 3800), height: 50)
             ),
           ],
         ),
@@ -356,6 +359,18 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             ),
           )
         ),
+      ],
+    );
+  }
+}
+
+class PendingProjects extends StatelessWidget {
+  const PendingProjects({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
         pendingProjectTile(
           "VSDroid",
           "A full fledged IDE on android uses Code Crafter under the hood.",
@@ -396,7 +411,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
               child: SvgPicture.asset(
                 colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
                 height: 40,
-                "assets/images/pgb-dsp.svg"
+                "assets/images/pcb.svg"
               ),
             ),
           )
@@ -585,13 +600,15 @@ class _SaberState extends State<Saber> with SingleTickerProviderStateMixin {
     _animation = Tween<double>(begin: 0, end: widget.height ?? 300).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeOut),
     );
-    Future.delayed(widget.startAfter, ()=> _controller.forward());
+    Future.delayed(widget.startAfter, (){ 
+      if(mounted)_controller.forward();
+    });
     super.initState();
   }
   
   @override
   void dispose() {
-    _controller.dispose();
+    if(mounted) _controller.dispose();
     super.dispose();
   }
   
@@ -609,7 +626,7 @@ class _SaberState extends State<Saber> with SingleTickerProviderStateMixin {
               color: Colors.greenAccent,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.greenAccent.withAlpha(122),
+                  color: Colors.greenAccent,
                   blurRadius: 8,
                   spreadRadius: 1,
                 ),
@@ -621,3 +638,93 @@ class _SaberState extends State<Saber> with SingleTickerProviderStateMixin {
     );
   }
 }
+
+final ListTile upcomingProject = ListTile(
+  titleTextStyle: GoogleFonts.museoModerno(
+    color: Colors.white,
+    fontSize: 22
+  ),
+  title: Row(
+    spacing: 30,
+    children: [
+      Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              blurStyle: BlurStyle.outer,
+              color: Colors.blueAccent.withAlpha(122),
+              blurRadius: 15,
+              spreadRadius: 0
+            )
+          ],
+          shape: BoxShape.circle
+        ),
+        child: SvgPicture.asset("assets/images/c-1.svg", height: 45),
+      ),
+      Text("DIY steering wheel set for PC Games")
+    ],
+  ),
+  subtitle: Padding(
+    padding: const EdgeInsets.only(left: 70),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Text(
+            "DIY steering wheel and gear box set using ATmega-8A microcontroller.",
+            style:  GoogleFonts.montserrat(
+              color: Colors.grey,
+              fontSize: 16
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+
+final Widget getInTouch = DefaultTextStyle(
+  style: GoogleFonts.montserrat(
+    height: 1.5,
+    color: Colors.grey[400],
+    fontSize: 18
+  ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Get in Touch",
+        style: GoogleFonts.museoModerno(
+          color: Colors.white,
+          fontSize: 40
+        ),
+      ),
+      Text("Reach out for collaborations or inquiries anytime.",style: TextStyle(color: Colors.white)),
+      SizedBox(height: 50),
+      Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.5),
+              child: Icon(Icons.email_outlined, color: Colors.white),
+            ),
+            Text("Email"),
+            Text("Your message is welcome!"),
+            Text("athulas2005@gmail.com"),
+            SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.5),
+              child: Icon(Icons.phone_enabled_outlined, color: Colors.white),
+            ),
+            Text("Phone"),
+            Text("Available for calls anytime."),
+            Text("+918848278440")
+          ],
+        ),
+      ),
+    ],
+  ),
+);
