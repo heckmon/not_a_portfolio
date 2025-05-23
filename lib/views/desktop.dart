@@ -155,7 +155,7 @@ class DesktopBodyState extends State<DesktopBody> {
                     key: Key("projects"),
                     onVisibilityChanged: (info) {
                       double visiblePercentage = info.visibleFraction * 100;
-                      if (visiblePercentage >= 40 && !_hasTriggeredProjects) {
+                      if (visiblePercentage >= 20 && !_hasTriggeredProjects) {
                         setState(() {
                           _projectsRebuild++;
                           _hasTriggeredProjects = true;
@@ -165,7 +165,6 @@ class DesktopBodyState extends State<DesktopBody> {
                       if (visiblePercentage < 10 && _hasTriggeredProjects) {
                         _hasTriggeredProjects = false;
                       }
-                      debugPrint('Widget ${info.key} is $visiblePercentage% visible');
                     },
                     child: Projects(key: ValueKey(_projectsRebuild))
                   ),
