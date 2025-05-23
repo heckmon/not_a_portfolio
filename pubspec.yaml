@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: ^3.6.1
+  sdk: ^3.8.0
 
 dependencies:
   animated_text_kit: ^4.2.3
@@ -15,6 +15,8 @@ dependencies:
   google_fonts: ^6.2.1
   responsive_framework: ^1.5.1
   url_launcher: ^6.3.1
+  visibility_detector: ^0.4.0+2
+  web_smooth_scroll: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^5.0.0

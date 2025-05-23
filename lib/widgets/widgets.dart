@@ -518,55 +518,58 @@ Widget pendingProjectTile(
   String subtitle,
   dynamic icon
 ){
-  return ListTile(
-    titleTextStyle: GoogleFonts.museoModerno(
-      color: const Color.fromARGB(255, 80, 79, 79),
-      fontSize: 22
-    ),
-    title: Row(
-      spacing: 20,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 0),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle
-            ),
-            child: icon,
-          ),
-        ),
-        Text(title)
-      ],
-    ),
-    subtitle: Padding(
-      padding: const EdgeInsets.only(left: 70),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: ListTile(
+      titleTextStyle: GoogleFonts.museoModerno(
+        color: const Color.fromARGB(255, 80, 79, 79),
+        fontSize: 22
+      ),
+      title: Row(
+        spacing: 20,
         children: [
-          Text(
-            subtitle,
-            style:  GoogleFonts.montserrat(
-              color: const Color.fromARGB(255, 74, 73, 73),
-              fontSize: 16
+          Padding(
+            padding: const EdgeInsets.only(top: 0),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle
+              ),
+              child: icon,
             ),
           ),
-          Row(
-            spacing: 5,
-            children: [
-              Text(
-                "Status: Under development",
-                style: GoogleFonts.montserrat(
-                  color: const Color.fromARGB(255, 80, 79, 79),
-                  fontSize: 14
-                ),
-              ),
-              Icon(
-                Icons.construction,
-                size: 17,
-              )
-            ],
-          ),
+          Text(title)
         ],
+      ),
+      subtitle: Padding(
+        padding: const EdgeInsets.only(left: 70),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              subtitle,
+              style:  GoogleFonts.montserrat(
+                color: const Color.fromARGB(255, 74, 73, 73),
+                fontSize: 16
+              ),
+            ),
+            Row(
+              spacing: 5,
+              children: [
+                Text(
+                  "Status: Under development",
+                  style: GoogleFonts.montserrat(
+                    color: const Color.fromARGB(255, 80, 79, 79),
+                    fontSize: 14
+                  ),
+                ),
+                Icon(
+                  Icons.construction,
+                  size: 17,
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     ),
   );
