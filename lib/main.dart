@@ -13,6 +13,7 @@ class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "Not a Portfolio",
       builder: (context, child) => ResponsiveBreakpoints.builder(
         child: child!,
         breakpoints: [

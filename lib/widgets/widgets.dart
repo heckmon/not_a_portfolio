@@ -39,8 +39,8 @@ class _TerminalState extends State<Terminal> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.height ?? double.infinity,
-      width: widget.width ?? double.infinity,
+      height: widget.height,
+      width: widget.width,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.greenAccent
@@ -57,7 +57,7 @@ class _TerminalState extends State<Terminal> with SingleTickerProviderStateMixin
       child: Column(
         children: [
           Expanded(
-            flex: 1,
+            flex: ResponsiveBreakpoints.of(context).isMobile ? 2 : 1,
             child: ClipRRect(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
               child: Container(
@@ -215,6 +215,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Padding(
               padding: const EdgeInsets.only(top: 15),
               child: projectTile(
+                context,
                 _projectAnimationControllers[0],
                 _colorAnimations[0],
                 _textColorAnimation[0],
@@ -250,6 +251,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
         Stack(
           children: [
             projectTile(
+              context,
               _projectAnimationControllers[1],
               _colorAnimations[1],
               _textColorAnimation[1],
@@ -277,13 +279,14 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 72,
-              child: Saber(startAfter: Duration(milliseconds: 1700), height: isMobile ? 142 : 85)
+              child: Saber(startAfter: Duration(milliseconds: 1700), height: isMobile ? 145 : 85)
             ), 
           ],
         ),
         Stack(
           children: [
             projectTile(
+              context,
               _projectAnimationControllers[2],
               _colorAnimations[2],
               _textColorAnimation[2],
@@ -314,13 +317,14 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 75,
-              child: Saber(startAfter: Duration(milliseconds: 2700), height: isMobile ? 140 : 85)
+              child: Saber(startAfter: Duration(milliseconds: 2700), height: isMobile ? 145 : 85)
             ), 
           ],
         ),
         Stack(
           children: [
             projectTile(
+              context,
               _projectAnimationControllers[3],
               _colorAnimations[3],
               _textColorAnimation[3],
@@ -434,6 +438,7 @@ class PendingProjects extends StatelessWidget {
 }
 
 Widget projectTile(
+    BuildContext context,
     AnimationController controller,
     Animation<Color?> colorAnimation,
     Animation<Color?> textColorAnimation,
@@ -444,6 +449,7 @@ Widget projectTile(
     dynamic icon,
     VoidCallback onPressed
   ){
+  bool isMobile = ResponsiveBreakpoints.of(context).isMobile;
   return AnimatedBuilder(
     animation: controller,
     builder: (context,child) {
@@ -460,8 +466,8 @@ Widget projectTile(
                 boxShadow: [
                   BoxShadow(
                     blurStyle: BlurStyle.outer,
-                    color: colorAnimation.value!.withAlpha(122),
-                    blurRadius: 15,
+                    color: isMobile ? colorAnimation.value! : colorAnimation.value!.withAlpha(122),
+                    blurRadius: isMobile ? 25 : 15,
                     spreadRadius: 1
                   )
                 ],
@@ -630,7 +636,7 @@ class _SaberState extends State<Saber> with SingleTickerProviderStateMixin {
               color: Colors.greenAccent,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.greenAccent,
+                  color: ResponsiveBreakpoints.of(context).isDesktop ? Colors.greenAccent.withAlpha(122) : Colors.greenAccent,
                   blurRadius: 8,
                   spreadRadius: 1,
                 ),
@@ -694,42 +700,44 @@ final Widget getInTouch = DefaultTextStyle(
     color: Colors.grey[400],
     fontSize: 18
   ),
-  child: Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        "Get in Touch",
-        style: GoogleFonts.museoModerno(
-          color: Colors.white,
-          fontSize: 40
+  child: Expanded(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Get in Touch",
+          style: GoogleFonts.museoModerno(
+            color: Colors.white,
+            fontSize: 40
+          ),
         ),
-      ),
-      Text("Reach out for collaborations or inquiries anytime.",style: TextStyle(color: Colors.white)),
-      SizedBox(height: 50),
-      Padding(
-        padding: const EdgeInsets.only(left: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.5),
-              child: Icon(Icons.email_outlined, color: Colors.white),
-            ),
-            Text("Email"),
-            Text("Your message is welcome!"),
-            Text("athulas2005@gmail.com"),
-            SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.5),
-              child: Icon(Icons.phone_enabled_outlined, color: Colors.white),
-            ),
-            Text("Phone"),
-            Text("Available for calls anytime."),
-            Text("+918848278440")
-          ],
+        Text("Reach out for collaborations or inquiries anytime.",style: TextStyle(color: Colors.white)),
+        SizedBox(height: 50),
+        Padding(
+          padding: const EdgeInsets.only(left: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.5),
+                child: Icon(Icons.email_outlined, color: Colors.white),
+              ),
+              Text("Email"),
+              Text("Your message is welcome!"),
+              Text("athulas2005@gmail.com"),
+              SizedBox(height: 50),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.5),
+                child: Icon(Icons.phone_enabled_outlined, color: Colors.white),
+              ),
+              Text("Phone"),
+              Text("Available for calls anytime."),
+              Text("+918848278440"),
+            ],
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   ),
 );
 
@@ -768,14 +776,14 @@ final Text ending = Text(
 );
 
 Terminal terminal1(bool isMobile, BuildContext context) => Terminal(
-  height: isMobile ? MediaQuery.of(context).size.height * 0.5 : double.infinity,
+  height: isMobile ? MediaQuery.of(context).size.height * 0.5 : null,
   width: isMobile ? 300 : double.infinity,
   command: "whoami",
   result: "Just a sleep-deprived engineering student with too many side projects and hate theory subjects.\n\nMy parents named me 'Athul'. I hate that name. \nStudying at the 'College of Engineering Attingal', even the locals don't know it exists.\n\nUnlike most of the rats running behind HTML, I started with Python.\n\nThen I learned flutter for front end.\nI chose Flutter not just for mobile, but because it’s a framework that makes sense. Native speed, cross-platform power. A full-stack framework that meets my needs. I loved that I could write once and deploy anywhere. Android, iOS, and web – all from a single codebase.\n\nCurrently learning OS development using C and assembly."
 );
 
 Terminal terminal2(bool isMobile, BuildContext context) => Terminal(
-  height: isMobile ? MediaQuery.of(context).size.height * 0.5 : double.infinity,
+  height: isMobile ? MediaQuery.of(context).size.height * 0.5 : null,
   width: isMobile ? 300 : double.infinity,
   command: "sudo load cringe",
   result: "> generating Readme.md profile...\nerror: Operation blocked.\nreason: Newbie glitter detected — does not meet developer credibility requirements.\n\n> get relationship --status\nstatus: Single since birth.\n\n> uptime\ntoo long.\n\n> go to sleep\nerror: Too many thoughts running.\n\n~\$ git checkout responsibilities\ngit: Switched to branch 'nah'\n\n~\$ df -h\n/dev/brain   Not working properly.\n\n~\$ ./lab.sh\n Half wired, Half wrong -- full marks anyway.\n\n> Cringe threshold exceeded. Exiting...",

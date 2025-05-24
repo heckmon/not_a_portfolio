@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:not_a_portfolio/widgets/widgets.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:web_smooth_scroll/web_smooth_scroll.dart';
 
@@ -38,8 +40,22 @@ class DesktopBodyState extends State<DesktopBody> {
         controller: _scrollController,
         child: ListView(
           controller: _scrollController,
-          physics: NeverScrollableScrollPhysics(),
+          physics: isDesktop && screenHeight < 1200 ?  NeverScrollableScrollPhysics() : null,
           children: [
+            Container(
+              color: Color(0xff090909),
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                    onPressed: () async => await launchUrl(Uri.parse("https://github.com/heckmon")),
+                    icon: Icon(FontAwesomeIcons.github, color: Colors.white, size: 28)
+                  ),
+                  SizedBox(width: 25)
+                ],  
+              )
+            ),
             SizedBox(
               height: screenHeight,
               child: isDesktop ? Row(
@@ -56,7 +72,7 @@ class DesktopBodyState extends State<DesktopBody> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             heading (false),
-                            SizedBox(height: 350),
+                            SizedBox(height: 250),
                             Column(
                               children: [
                                 quote(false),
@@ -114,7 +130,7 @@ class DesktopBodyState extends State<DesktopBody> {
                       children: [
                         image,
                         Padding(
-                          padding: const EdgeInsets.only(top: 75),
+                          padding: const EdgeInsets.only(top: 5),
                           child: Align(
                             alignment: Alignment.topCenter,
                             child: heading(true)
@@ -214,7 +230,7 @@ class DesktopBodyState extends State<DesktopBody> {
               ),
             ),
             SizedBox(
-              height: screenHeight,
+              height: isDesktop ? screenHeight : null,
               child: isDesktop ? Row(
                 children: [
                   Expanded(
