@@ -2,6 +2,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Terminal extends StatefulWidget {
@@ -9,12 +10,16 @@ class Terminal extends StatefulWidget {
   final String result;
   final Curve? curve;
   final int? delay;
+  final double? height;
+  final double? width;
   const Terminal({
     super.key,
     required this.command,
     required this.result,
     this.curve,
-    this.delay
+    this.delay,
+    this.height,
+    this.width
   });
 
   @override
@@ -34,6 +39,8 @@ class _TerminalState extends State<Terminal> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: widget.height ?? double.infinity,
+      width: widget.width ?? double.infinity,
       decoration: BoxDecoration(
         border: Border.all(
           color: Colors.greenAccent
@@ -77,57 +84,60 @@ class _TerminalState extends State<Terminal> with SingleTickerProviderStateMixin
               borderRadius: const BorderRadius.vertical(bottom: Radius.circular(12)),
               child: Container(
                 color: Colors.black,
-                child: ListView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Row(
-                        children: [
-                          Text(
-                            " root@athul",
-                            style: GoogleFonts.sourceCodePro (
-                              fontSize: 20,
-                              color: const Color(0xff23d18b),
-                            )
-                          ),
-                          Text(":\$",style: GoogleFonts.sourceCodePro(color: Colors.grey, fontSize: 20)),
-                          const SizedBox(width: 5),
-                          DefaultTextStyle(
-                            style: GoogleFonts.sourceCodePro(
-                              color: Colors.grey[400],
-                              fontSize: 20
+                child: Transform.scale(
+                  scale: ResponsiveBreakpoints.of(context).isMobile ? 0.95 : 1,
+                  child: ListView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: Wrap(
+                          children: [
+                            Text(
+                              " root@athul",
+                              style: GoogleFonts.sourceCodePro (
+                                fontSize: 20,
+                                color: const Color(0xff23d18b),
+                              )
                             ),
-                            child: AnimatedTextKit(
-                              onFinished: () => setState(() => isDone = true),
-                              totalRepeatCount: 1,
-                              animatedTexts: [
-                                TypewriterAnimatedText(
-                                  speed: Duration(milliseconds: widget.delay ?? 400), 
-                                  curve: widget.curve ?? Curves.bounceIn,
-                                  widget.command,
-                                )
-                              ],
-                              controller: typeWriterController,
-                            )
-                          ),
-                        ],
+                            Text(":\$",style: GoogleFonts.sourceCodePro(color: Colors.grey, fontSize: 20)),
+                            const SizedBox(width: 5),
+                            DefaultTextStyle(
+                              style: GoogleFonts.sourceCodePro(
+                                color: Colors.grey[400],
+                                fontSize: 20
+                              ),
+                              child: AnimatedTextKit(
+                                onFinished: () => setState(() => isDone = true),
+                                totalRepeatCount: 1,
+                                animatedTexts: [
+                                  TypewriterAnimatedText(
+                                    speed: Duration(milliseconds: widget.delay ?? 400), 
+                                    curve: widget.curve ?? Curves.bounceIn,
+                                    widget.command,
+                                  )
+                                ],
+                                controller: typeWriterController,
+                              )
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                      child: Visibility(
-                        visible: isDone,
-                        child: Text(
-                          widget.result,
-                          textAlign: TextAlign.start,
-                          style: GoogleFonts.sourceCodePro(
-                            color: Colors.grey,
-                            fontSize: 18.5,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        child: Visibility(
+                          visible: isDone,
+                          child: Text(
+                            widget.result,
+                            textAlign: TextAlign.start,
+                            style: GoogleFonts.sourceCodePro(
+                              color: Colors.grey,
+                              fontSize: 18.5,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             )
@@ -197,6 +207,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile = ResponsiveBreakpoints.of(context).isMobile;
     return Column(
       children: [
         Stack(
@@ -208,7 +219,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
                 _colorAnimations[0],
                 _textColorAnimation[0],
                 _subtitleColorAnimation[0],
-                "Seven Segment Display module",
+                "7 Segment Display module",
                 "A MicroPython library to control traditional 4 digit seven segment display.",
                 "",
                 Padding(
@@ -232,7 +243,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 87,
-              child: Saber(startAfter: Duration(milliseconds: 400), height: 85)
+              child: Saber(startAfter: Duration(milliseconds: 400), height: isMobile ? 145 : 85)
             ),    
           ],
         ),
@@ -266,7 +277,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 72,
-              child: Saber(startAfter: Duration(milliseconds: 1700), height: 85)
+              child: Saber(startAfter: Duration(milliseconds: 1700), height: isMobile ? 142 : 85)
             ), 
           ],
         ),
@@ -303,7 +314,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 75,
-              child: Saber(startAfter: Duration(milliseconds: 2700), height: 85)
+              child: Saber(startAfter: Duration(milliseconds: 2700), height: isMobile ? 140 : 85)
             ), 
           ],
         ),
@@ -340,7 +351,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 75,
-              child: Saber(startAfter: Duration(milliseconds: 3800), height: 50)
+              child: Saber(startAfter: Duration(milliseconds: 3800), height: isMobile ? 110 : 50)
             ),
           ],
         ),
@@ -369,6 +380,7 @@ class PendingProjects extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile = ResponsiveBreakpoints.of(context).isMobile;
     return Column(
       children: [
         pendingProjectTile(
@@ -402,7 +414,7 @@ class PendingProjects extends StatelessWidget {
           )
         ),
         pendingProjectTile(
-          "Mini PC from scratch using NAND gates",
+          "Mini PC from scratch using ${isMobile ? "\n" : ""} NAND gates",
           "Following the 'NandToTetris' course",
           Padding(
             padding: const EdgeInsets.all(9.0),
@@ -434,80 +446,72 @@ Widget projectTile(
   ){
   return AnimatedBuilder(
     animation: controller,
-    builder: (context, child) {
-      return AnimatedBuilder(
-        animation: controller,
-        builder: (context,child) {
-          return ListTile(
-            titleTextStyle: GoogleFonts.museoModerno(
-              color: textColorAnimation.value,
-              fontSize: 22
-            ),
-            title: Row(
-              spacing: 20,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          blurStyle: BlurStyle.outer,
-                          color: colorAnimation.value!.withAlpha(122),
-                          blurRadius: 15,
-                          spreadRadius: 1
-                        )
-                      ],
-                      border: Border.all(
-                        color: colorAnimation.value ?? Colors.transparent,
-                        width: 1.5
-                      ),
-                      shape: BoxShape.circle
-                    ),
-                    child: icon,
-                  ),
+    builder: (context,child) {
+      return ListTile(
+        titleTextStyle: GoogleFonts.museoModerno(
+          color: textColorAnimation.value,
+          fontSize: 22
+        ),
+        title: Row(
+          spacing: 19,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    blurStyle: BlurStyle.outer,
+                    color: colorAnimation.value!.withAlpha(122),
+                    blurRadius: 15,
+                    spreadRadius: 1
+                  )
+                ],
+                border: Border.all(
+                  color: colorAnimation.value ?? Colors.transparent,
+                  width: 1.5
                 ),
-                Text(title)
-              ],
+                shape: BoxShape.circle
+              ),
+              child: icon,
             ),
-            subtitle: Padding(
-              padding: const EdgeInsets.only(left: 70),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Text(title)
+          ],
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(left: 70),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                subtitle,
+                style:  GoogleFonts.montserrat(
+                  color: subtitleColorAnimation.value,
+                  fontSize: 16
+                ),
+              ),
+              Row(
+                spacing: 5,
                 children: [
                   Text(
-                    subtitle,
-                    style:  GoogleFonts.montserrat(
+                    "Status: Completed",
+                    style: GoogleFonts.montserrat(
                       color: subtitleColorAnimation.value,
-                      fontSize: 16
+                      fontSize: 14
                     ),
                   ),
-                  Row(
-                    spacing: 5,
-                    children: [
-                      Text(
-                        "Status: Completed",
-                        style: GoogleFonts.montserrat(
-                          color: subtitleColorAnimation.value,
-                          fontSize: 14
-                        ),
-                      ),
-                      Icon(
-                        Icons.check_circle_rounded,
-                        size: 15,
-                        color: Colors.greenAccent,
-                      )
-                    ],
-                  ),
-                  TextButton(
-                    onPressed: onPressed,
-                    child: Text("Source code")
+                  Icon(
+                    Icons.check_circle_rounded,
+                    size: 15,
+                    color: Colors.greenAccent,
                   )
                 ],
               ),
-            ),
-          );
-        }
+              TextButton(
+                onPressed: onPressed,
+                child: Text("Source code")
+              )
+            ],
+          ),
+        ),
       );
     }
   );
@@ -528,14 +532,11 @@ Widget pendingProjectTile(
       title: Row(
         spacing: 20,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 0),
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle
-              ),
-              child: icon,
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle
             ),
+            child: icon,
           ),
           Text(title)
         ],
@@ -642,7 +643,7 @@ class _SaberState extends State<Saber> with SingleTickerProviderStateMixin {
   }
 }
 
-final ListTile upcomingProject = ListTile(
+ListTile upcomingProject(bool isMobile) => ListTile(
   titleTextStyle: GoogleFonts.museoModerno(
     color: Colors.white,
     fontSize: 22
@@ -664,7 +665,7 @@ final ListTile upcomingProject = ListTile(
         ),
         child: SvgPicture.asset("assets/images/c-1.svg", height: 45),
       ),
-      Text("DIY steering wheel set for PC Games")
+      Text("DIY steering wheel set${isMobile ? "\n" : ""}for PC Games")
     ],
   ),
   subtitle: Padding(
@@ -730,4 +731,54 @@ final Widget getInTouch = DefaultTextStyle(
       ),
     ],
   ),
+);
+
+Text heading(bool isMobile) => Text(
+  "Not a Portfolio",
+  style: GoogleFonts.tangerine(
+    fontSize: !isMobile ? 130 : 65,
+    color: Colors.white
+));
+
+Text quote(bool isMobile) => Text(
+  '"Why decorate a README profile when ${isMobile ? "\n" : ""} the repo itself tells the story?"',
+  style: GoogleFonts.kalam(
+    color: Colors.white,
+    fontSize: 20,
+    fontStyle: FontStyle.italic
+  ),
+);
+
+final Widget image = Opacity(
+  opacity: 0.15,
+  child: Image.asset(
+    "assets/images/cat.webp",
+    fit: BoxFit.cover,
+  ),
+);
+
+final Text ending = Text(
+  "No intension to showcase anything.\nJust built a site for fun.",
+  textAlign: TextAlign.center,
+  style: GoogleFonts.montserrat(
+    color: Colors.white,
+    fontSize: 19,
+    height: 1.5
+  ),
+);
+
+Terminal terminal1(bool isMobile, BuildContext context) => Terminal(
+  height: isMobile ? MediaQuery.of(context).size.height * 0.5 : double.infinity,
+  width: isMobile ? 300 : double.infinity,
+  command: "whoami",
+  result: "Just a sleep-deprived engineering student with too many side projects and hate theory subjects.\n\nMy parents named me 'Athul'. I hate that name. \nStudying at the 'College of Engineering Attingal', even the locals don't know it exists.\n\nUnlike most of the rats running behind HTML, I started with Python.\n\nThen I learned flutter for front end.\nI chose Flutter not just for mobile, but because it’s a framework that makes sense. Native speed, cross-platform power. A full-stack framework that meets my needs. I loved that I could write once and deploy anywhere. Android, iOS, and web – all from a single codebase.\n\nCurrently learning OS development using C and assembly."
+);
+
+Terminal terminal2(bool isMobile, BuildContext context) => Terminal(
+  height: isMobile ? MediaQuery.of(context).size.height * 0.5 : double.infinity,
+  width: isMobile ? 300 : double.infinity,
+  command: "sudo load cringe",
+  result: "> generating Readme.md profile...\nerror: Operation blocked.\nreason: Newbie glitter detected — does not meet developer credibility requirements.\n\n> get relationship --status\nstatus: Single since birth.\n\n> uptime\ntoo long.\n\n> go to sleep\nerror: Too many thoughts running.\n\n~\$ git checkout responsibilities\ngit: Switched to branch 'nah'\n\n~\$ df -h\n/dev/brain   Not working properly.\n\n~\$ ./lab.sh\n Half wired, Half wrong -- full marks anyway.\n\n> Cringe threshold exceeded. Exiting...",
+  delay: 150,
+  curve: Curves.easeIn,
 );
