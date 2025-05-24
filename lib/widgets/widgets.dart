@@ -700,44 +700,42 @@ final Widget getInTouch = DefaultTextStyle(
     color: Colors.grey[400],
     fontSize: 18
   ),
-  child: Expanded(
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Get in Touch",
-          style: GoogleFonts.museoModerno(
-            color: Colors.white,
-            fontSize: 40
-          ),
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        "Get in Touch",
+        style: GoogleFonts.museoModerno(
+          color: Colors.white,
+          fontSize: 40
         ),
-        Text("Reach out for collaborations or inquiries anytime.",style: TextStyle(color: Colors.white)),
-        SizedBox(height: 50),
-        Padding(
-          padding: const EdgeInsets.only(left: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.5),
-                child: Icon(Icons.email_outlined, color: Colors.white),
-              ),
-              Text("Email"),
-              Text("Your message is welcome!"),
-              Text("athulas2005@gmail.com"),
-              SizedBox(height: 50),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.5),
-                child: Icon(Icons.phone_enabled_outlined, color: Colors.white),
-              ),
-              Text("Phone"),
-              Text("Available for calls anytime."),
-              Text("+918848278440"),
-            ],
-          ),
+      ),
+      Text("Reach out for collaborations or inquiries anytime.",style: TextStyle(color: Colors.white)),
+      SizedBox(height: 50),
+      Padding(
+        padding: const EdgeInsets.only(left: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.5),
+              child: Icon(Icons.email_outlined, color: Colors.white),
+            ),
+            Text("Email"),
+            Text("Your message is welcome!"),
+            Text("athulas2005@gmail.com"),
+            SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.5),
+              child: Icon(Icons.phone_enabled_outlined, color: Colors.white),
+            ),
+            Text("Phone"),
+            Text("Available for calls anytime."),
+            Text("+918848278440"),
+          ],
         ),
-      ],
-    ),
+      ),
+    ],
   ),
 );
 
