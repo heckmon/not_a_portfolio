@@ -513,7 +513,7 @@ Widget projectTile(
                   Icon(
                     Icons.check_circle_rounded,
                     size: 15,
-                    color: Colors.greenAccent,
+                    color: colorAnimation.value,
                   )
                 ],
               ),
@@ -522,7 +522,7 @@ Widget projectTile(
                 child: TextButton(
                   style: ButtonStyle(
                     elevation: WidgetStatePropertyAll(5),
-                    backgroundColor: WidgetStatePropertyAll(const Color.fromARGB(43, 97, 97, 97))
+                    backgroundColor: WidgetStatePropertyAll(subtitleColorAnimation.value!.withAlpha(16))
                   ),
                   onPressed: onPressed,
                   child: Text("Source code")
