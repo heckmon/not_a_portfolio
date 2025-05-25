@@ -458,7 +458,7 @@ Widget projectTile(
           color: textColorAnimation.value,
           fontSize: 22
         ),
-        title: Row(
+        title: Wrap(
           spacing: 19,
           children: [
             Container(
@@ -487,21 +487,27 @@ Widget projectTile(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                subtitle,
-                style:  GoogleFonts.montserrat(
-                  color: subtitleColorAnimation.value,
-                  fontSize: 16
+              Padding(
+                padding: const EdgeInsets.only(left: 10.5),
+                child: Text(
+                  subtitle,
+                  style:  GoogleFonts.montserrat(
+                    color: subtitleColorAnimation.value,
+                    fontSize: 16
+                  ),
                 ),
               ),
               Row(
                 spacing: 5,
                 children: [
-                  Text(
-                    "Status: Completed",
-                    style: GoogleFonts.montserrat(
-                      color: subtitleColorAnimation.value,
-                      fontSize: 14
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.5),
+                    child: Text(
+                      "Status: Completed",
+                      style: GoogleFonts.montserrat(
+                        color: subtitleColorAnimation.value,
+                        fontSize: 14
+                      ),
                     ),
                   ),
                   Icon(
@@ -511,9 +517,16 @@ Widget projectTile(
                   )
                 ],
               ),
-              TextButton(
-                onPressed: onPressed,
-                child: Text("Source code")
+              Padding(
+                padding: const EdgeInsets.only(left: 6, top: 6.5),
+                child: TextButton(
+                  style: ButtonStyle(
+                    elevation: WidgetStatePropertyAll(5),
+                    backgroundColor: WidgetStatePropertyAll(const Color.fromARGB(43, 97, 97, 97))
+                  ),
+                  onPressed: onPressed,
+                  child: Text("Source code")
+                ),
               )
             ],
           ),
