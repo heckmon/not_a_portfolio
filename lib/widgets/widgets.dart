@@ -522,7 +522,7 @@ Widget projectTile(
                 child: TextButton(
                   style: ButtonStyle(
                     elevation: WidgetStatePropertyAll(5),
-                    backgroundColor: WidgetStatePropertyAll(subtitleColorAnimation.value!.withAlpha(16))
+                    backgroundColor: WidgetStatePropertyAll(subtitleColorAnimation.value!.withAlpha(!isMobile ? 16 : 28))
                   ),
                   onPressed: onPressed,
                   child: Text("Source code")
