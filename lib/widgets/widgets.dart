@@ -458,7 +458,7 @@ Widget projectTile(
           color: textColorAnimation.value,
           fontSize: 22
         ),
-        title: Wrap(
+        title: Row(
           spacing: 19,
           children: [
             Container(
