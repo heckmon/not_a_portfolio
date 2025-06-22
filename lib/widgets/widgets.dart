@@ -165,24 +165,24 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
 
   @override
   void initState() {
-     _projectAnimationControllers = List.generate(4, (_) => AnimationController(
+     _projectAnimationControllers = List.generate(5, (_) => AnimationController(
         vsync: this,
         duration: Duration(milliseconds: 600),
       ));
 
-      _colorAnimations = List.generate(4, (index) =>
+      _colorAnimations = List.generate(5, (index) =>
         ColorTween(begin: Colors.transparent, end: Colors.greenAccent).animate(_projectAnimationControllers[index])
       );
 
-      _textColorAnimation = List.generate(4, (index) => 
+      _textColorAnimation = List.generate(5, (index) => 
         ColorTween(begin: const Color.fromARGB(255, 59, 58, 58), end: Colors.white).animate(_projectAnimationControllers[index])
       );
 
-      _iconColorAnimation = List.generate(4, (index) => 
+      _iconColorAnimation = List.generate(5, (index) => 
         ColorTween(begin: Colors.black, end: Colors.transparent).animate(_projectAnimationControllers[index])
       );
 
-      _subtitleColorAnimation = List.generate(4, (index) => 
+      _subtitleColorAnimation = List.generate(5, (index) => 
         ColorTween(begin: const Color.fromARGB(255, 52, 52, 52), end: Colors.grey[400]).animate(_projectAnimationControllers[index])
       );
 
@@ -222,7 +222,6 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
                 _subtitleColorAnimation[0],
                 "7 Segment Display module",
                 "A MicroPython library to control traditional 4 digit seven segment display.",
-                "",
                 Padding(
                   padding: const EdgeInsets.all(9.0),
                   child: AnimatedBuilder(
@@ -258,7 +257,6 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
               _subtitleColorAnimation[1],
               "AI Whatsapp Bot",
               "A whatsapp bot created by integrating Google Gemini API with Whatsapp API.",
-              "",
               Padding(
                 padding: const EdgeInsets.all(9.0),
                 child: AnimatedBuilder(
@@ -293,7 +291,6 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
               _subtitleColorAnimation[2],
               "KTU result prank",
               "KTU result page clone with fake result, I learned flutter by doing this.",
-              "",
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom:8, right: 11),
                 child: Padding(
@@ -331,7 +328,6 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
               _subtitleColorAnimation[3],
               "File Tree View",
               "A flutter package to display directiories in a VScode style tree structure.",
-              "",
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom:8, right: 11),
                 child: Padding(
@@ -355,24 +351,46 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 75,
-              child: Saber(startAfter: Duration(milliseconds: 3800), height: isMobile ? 110 : 50)
+              child: Saber(startAfter: Duration(milliseconds: 3800), height: isMobile ? 110 : 85)
             ),
           ],
         ),
-        pendingProjectTile(
-          "Code Crafter",
-          "A powerful flutter code editor package with LSP support.",
-          Padding(
-            padding: const EdgeInsets.only(top: 8, bottom: 8, right: 11),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SvgPicture.asset(
-                colorFilter: ColorFilter.mode(Colors.black, BlendMode.color),
-                height: 35,
-                "assets/images/flutter.svg"
+        Stack(
+          children: [
+            projectTile(
+              context,
+              _projectAnimationControllers[4],
+              _colorAnimations[4],
+              _textColorAnimation[4],
+              _subtitleColorAnimation[4],
+              "Code Crafter",
+              "A powerful flutter code editor package with LSP support.",
+              Padding(
+                padding: const EdgeInsets.only(top: 8, bottom:8, right: 11),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: AnimatedBuilder(
+                    animation: _projectAnimationControllers[4],
+                    builder: (context,_) {
+                      return SvgPicture.asset(
+                        colorFilter: ColorFilter.mode(_iconColorAnimation[4].value!, BlendMode.color),
+                        height: 35,
+                        "assets/images/flutter.svg",
+                      );
+                    }
+                  ),
+                ),
               ),
+              () async{
+                await launchUrl(Uri.parse("https://github.com/heckmon/flutter_code_crafter"));
+              }
             ),
-          )
+            Positioned(
+              left: 47,
+              top: 75,
+              child: Saber(startAfter: Duration(milliseconds: 4700), height: isMobile ? 110 : 50)
+            ),
+          ],
         ),
       ],
     );
@@ -445,7 +463,6 @@ Widget projectTile(
     Animation<Color?> subtitleColorAnimation,
     String title,
     String subtitle,
-    String link,
     dynamic icon,
     VoidCallback onPressed
   ){
