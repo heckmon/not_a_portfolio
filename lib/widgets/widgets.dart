@@ -351,7 +351,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
             Positioned(
               left: 47,
               top: 75,
-              child: Saber(startAfter: Duration(milliseconds: 3800), height: isMobile ? 110 : 85)
+              child: Saber(startAfter: Duration(milliseconds: 3800), height: isMobile ? 145 : 85)
             ),
           ],
         ),
