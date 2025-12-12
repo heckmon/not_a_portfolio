@@ -699,7 +699,7 @@ ListTile upcomingProject(bool isMobile) => ListTile(
         ),
         child: SvgPicture.asset("assets/images/c-1.svg", height: 45),
       ),
-      Text("DIY steering wheel set${isMobile ? "\n" : ""}for PC Games")
+      Text("DIY steering wheel set${isMobile ? "\n" : " "}for PC Games")
     ],
   ),
   subtitle: Padding(
