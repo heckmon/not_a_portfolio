@@ -197,11 +197,9 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
 
   @override
   void dispose() {
-    WidgetsBinding.instance.addPostFrameCallback((_){
-      for(AnimationController controller in _projectAnimationControllers){
-        if(mounted) controller.dispose();
+    for (final AnimationController controller in _projectAnimationControllers) {
+      controller.dispose();
     }
-    });
     super.dispose();
   }
 
@@ -363,7 +361,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
               _colorAnimations[4],
               _textColorAnimation[4],
               _subtitleColorAnimation[4],
-              "Code Crafter",
+              "Code Forge",
               "A powerful flutter code editor package with LSP support.",
               Padding(
                 padding: const EdgeInsets.only(top: 8, bottom:8, right: 11),
@@ -382,7 +380,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
                 ),
               ),
               () async{
-                await launchUrl(Uri.parse("https://github.com/heckmon/flutter_code_crafter"));
+                await launchUrl(Uri.parse("https://github.com/heckmon/code_forge"));
               }
             ),
             Positioned(
