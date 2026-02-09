@@ -405,7 +405,7 @@ class PendingProjects extends StatelessWidget {
       children: [
         pendingProjectTile(
           "VSDroid",
-          "A full fledged IDE on android uses Code Crafter under the hood.",
+          "A full fledged IDE on android uses Code Forge under the hood.",
           Padding(
             padding: const EdgeInsets.only(top: 8, bottom: 8, right: 11),
             child: Padding(
