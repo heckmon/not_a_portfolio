@@ -57,13 +57,13 @@ class DesktopBodyState extends State<DesktopBody> {
               )
             ),
             SizedBox(
-              height: screenHeight,
+              height: isDesktop && screenHeight > 1220 ? 700 : screenHeight,
               child: isDesktop ? Row(
                 children: [
                   Expanded(
                     flex: 1,
                     child: SizedBox(
-                      height: screenHeight,
+                      height: isDesktop && screenHeight > 1220 ? 700 : screenHeight,
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
@@ -71,8 +71,13 @@ class DesktopBodyState extends State<DesktopBody> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            heading (false),
-                            SizedBox(height: 250),
+                            Text(
+                              "Not a Portfolio",
+                              style: GoogleFonts.tangerine(
+                                fontSize: isDesktop && screenHeight < 1220 ? 130 : 65,
+                                color: Colors.white
+                            )),
+                            SizedBox(height: isDesktop && screenHeight > 1220 ? 100 : 250),
                             Column(
                               children: [
                                 quote(false),
@@ -133,12 +138,23 @@ class DesktopBodyState extends State<DesktopBody> {
                           padding: const EdgeInsets.only(top: 5),
                           child: Align(
                             alignment: Alignment.topCenter,
-                            child: heading(true)
+                            child: Text(
+                              "Not a Portfolio",
+                              style: GoogleFonts.tangerine(
+                                fontSize: 65,
+                                color: Colors.white
+                            ))
                           ),
                         ),
                         Align(
                           alignment: Alignment.center,
-                          child: terminal1(true, context)
+                          child: ConstrainedBox(
+                            constraints: BoxConstraints(
+                              maxHeight: screenHeight / 2,
+                              maxWidth: screenWidth / 1.2
+                            ),
+                            child: terminal1(true, context)
+                          )
                         ),
                         Positioned(
                           left: 20,
@@ -230,7 +246,7 @@ class DesktopBodyState extends State<DesktopBody> {
               ),
             ),
             SizedBox(
-              height: isDesktop ? screenHeight : null,
+              height: isDesktop && screenHeight > 1220 ? 700 : screenHeight,
               child: isDesktop ? Row(
                 children: [
                   Expanded(
@@ -260,7 +276,13 @@ class DesktopBodyState extends State<DesktopBody> {
                 ],
               ) : Column(
                 children: [
-                  terminal2(!isDesktop, context),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: screenHeight / 2.2,
+                      maxWidth: screenWidth / 1.2
+                    ),
+                    child: terminal2(!isDesktop, context)
+                  ),
                   Transform.scale(scale: 0.8, child: getInTouch)
                 ],
               ),

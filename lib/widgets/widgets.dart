@@ -405,7 +405,7 @@ class _ProjectsState extends State<Projects> with TickerProviderStateMixin{
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: AnimatedBuilder(
-                    animation: _projectAnimationControllers[4],
+                    animation: _projectAnimationControllers[5],
                     builder: (context,_) {
                       return SvgPicture.asset(
                         colorFilter: ColorFilter.mode(_iconColorAnimation[4].value!, BlendMode.color),
@@ -784,13 +784,6 @@ final Widget getInTouch = DefaultTextStyle(
   ),
 );
 
-Text heading(bool isMobile) => Text(
-  "Not a Portfolio",
-  style: GoogleFonts.tangerine(
-    fontSize: !isMobile ? 130 : 65,
-    color: Colors.white
-));
-
 Text quote(bool isMobile) => Text(
   '"Why decorate a README profile when ${isMobile ? "\n" : ""} the repo itself tells the story?"',
   style: GoogleFonts.kalam(
@@ -819,15 +812,11 @@ final Text ending = Text(
 );
 
 Terminal terminal1(bool isMobile, BuildContext context) => Terminal(
-  height: isMobile ? MediaQuery.of(context).size.height * 0.5 : null,
-  width: isMobile ? 300 : double.infinity,
   command: "whoami",
-  result: "Just a sleep-deprived engineering student with too many side projects and hate theory subjects.\n\nMy parents named me 'Athul'. I hate that name. \nStudying at the 'College of Engineering Attingal', even the locals don't know it exists.\n\nUnlike most of the rats running behind HTML, I started with Python.\n\nThen I learned flutter for front end.\nI chose Flutter not just for mobile, but because it’s a framework that makes sense. Native speed, cross-platform power. A full-stack framework that meets my needs. I loved that I could write once and deploy anywhere. Android, iOS, and web – all from a single codebase.\n\nCurrently learning OS development using C and assembly."
+  result: "Just an ordinary engineering student with too many side projects and hate theory subjects.\n\nMy parents named me 'Athul'. I hate that name. \nStudying at the 'College of Engineering Attingal', even the locals don't know it exists.\n\nUnlike most of the rats running behind HTML, I started with Python.\n\nThen I learned flutter for front end.\nI chose Flutter not just for mobile, but because it’s a framework that makes sense. Native speed, cross-platform power. A full-stack framework that meets my needs. I loved that I could write once and deploy anywhere. Android, iOS, and web – all from a single codebase.\n\nCurrently learning OS development using C and assembly."
 );
 
 Terminal terminal2(bool isMobile, BuildContext context) => Terminal(
-  height: isMobile ? MediaQuery.of(context).size.height * 0.5 : null,
-  width: isMobile ? 300 : double.infinity,
   command: "sudo load cringe",
   result: "> generating Readme.md profile...\nerror: Operation blocked.\nreason: Newbie glitter detected — does not meet developer credibility requirements.\n\n> get relationship --status\nstatus: Single since birth.\n\n> uptime\ntoo long.\n\n> go to sleep\nerror: Too many thoughts running.\n\n~\$ git checkout responsibilities\ngit: Switched to branch 'nah'\n\n~\$ df -h\n/dev/brain   Not working properly.\n\n~\$ ./lab.sh\n Half wired, Half wrong -- full marks anyway.\n\n> Cringe threshold exceeded. Exiting...",
   delay: 150,
