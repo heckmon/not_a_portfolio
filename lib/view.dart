@@ -50,7 +50,7 @@ class DesktopBodyState extends State<DesktopBody> {
                 children: [
                   IconButton(
                     onPressed: () async => await launchUrl(Uri.parse("https://github.com/heckmon")),
-                    icon: Icon(FontAwesomeIcons.github, color: Colors.white, size: 28)
+                    icon: FaIcon(FontAwesomeIcons.github, color: Colors.white, size: 28)
                   ),
                   SizedBox(width: 25)
                 ],  
@@ -230,18 +230,18 @@ class DesktopBodyState extends State<DesktopBody> {
                     child: PendingProjects()
                   ),
                   SizedBox(height: 100),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Text("Upcoming Project(s)", style: GoogleFonts.museoModerno(
-                      color: Colors.white,
-                      fontSize: 38
-                    )),
-                  ),
-                  SizedBox(height: 70),
-                  Padding(
-                    padding: EdgeInsets.only(left: !isDesktop ? 0 : screenWidth * 0.3),
-                    child: upcomingProject(!isDesktop),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.center,
+                  //   child: Text("Upcoming Project(s)", style: GoogleFonts.museoModerno(
+                  //     color: Colors.white,
+                  //     fontSize: 38
+                  //   )),
+                  // ),
+                  // SizedBox(height: 70),
+                  // Padding(
+                  //   padding: EdgeInsets.only(left: !isDesktop ? 0 : screenWidth * 0.3),
+                  //   child: upcomingProject(!isDesktop),
+                  // ),
                 ],
               ),
             ),
